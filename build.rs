@@ -1,11 +1,10 @@
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // tonic_build::compile_protos("./proto/calculator.proto")?;
+use std::{env, path::PathBuf};
 
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
     tonic_build::configure()
-        .build_client(true)
-        .build_server(true)
-        .file_descriptor_set_path("calculator_descriptor.bin")
+        .file_descriptor_set_path(out_dir.join("calculator_descriptor.bin"))
         .compile(&["./proto/calculator.proto"], &["proto"])?;
-    
+
     Ok(())
 }
