@@ -1,48 +1,50 @@
 use tonic::{transport::Server, Request, Response, Status};
-use calculator::calculator_server::{Calculator, CalculatorServer};
-use calculator::{CalculationSubjects, CalculationResponse};
 
 pub mod calculator {
     tonic::include_proto!("calculator");
 }
+
+use calculator::calculator_server::{Calculator, CalculatorServer};
+use calculator::{CalculationSubjects, CalculationResult};
+
 
 #[derive(Debug, Default)]
 pub struct CalculatorService {}
 
 #[tonic::async_trait]
 impl Calculator for CalculatorService {
-    async fn add(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResponse>, Status>
+    async fn add(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResult>, Status>
     {
         let req = request.into_inner();
-        let result = CalculationResponse {
-            result: req.a + req.b
+        let result = CalculationResult {
+            value: req.a + req.b
         };
         Ok(Response::new(result))
     }
 
-    async fn subtract(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResponse>, Status>
+    async fn subtract(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResult>, Status>
     {
         let req = request.into_inner();
-        let result = CalculationResponse {
-            result: req.a - req.b
+        let result = CalculationResult {
+            value: req.a - req.b
         };
         Ok(Response::new(result))
     }
 
-    async fn multiply(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResponse>, Status>
+    async fn multiply(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResult>, Status>
     {
         let req = request.into_inner();
-        let result = CalculationResponse {
-            result: req.a * req.b
+        let result = CalculationResult {
+            value: req.a * req.b
         };
         Ok(Response::new(result))
     }
 
-    async fn divide(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResponse>, Status>
+    async fn divide(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResult>, Status>
     {
         let req = request.into_inner();
-        let result = CalculationResponse {
-            result: req.a / req.b
+        let result = CalculationResult {
+            value: req.a / req.b
         };
         Ok(Response::new(result))
     }
