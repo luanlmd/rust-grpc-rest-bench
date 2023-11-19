@@ -3,10 +3,17 @@ package calculator;
 
 service Calculator
 {
+    rpc Hello(Empty) returns (Message) {}
     rpc Add(CalculationSubjects) returns (CalculationResult) {}
     rpc Subtract(CalculationSubjects) returns (CalculationResult) {}
     rpc Multiply(CalculationSubjects) returns (CalculationResult) {}
     rpc Divide(CalculationSubjects) returns (CalculationResult) {}
+}
+
+message Empty {}
+
+message Message {
+    string message = 1;
 }
 
 message CalculationSubjects

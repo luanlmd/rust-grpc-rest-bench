@@ -5,7 +5,7 @@ pub mod calculator {
 }
 
 use calculator::calculator_server::{Calculator, CalculatorServer};
-use calculator::{CalculationSubjects, CalculationResult};
+use calculator::{CalculationSubjects, CalculationResult, Empty, Message};
 
 
 #[derive(Debug, Default)]
@@ -13,6 +13,12 @@ pub struct CalculatorService {}
 
 #[tonic::async_trait]
 impl Calculator for CalculatorService {
+    async fn hello(&self, _request: Request<Empty>) -> Result <Response<Message>, Status>
+    {
+        let result = Message { message: "Hello from Rust GRPC!".into() };
+        Ok(Response::new(result))
+    }
+
     async fn add(&self, request: Request<CalculationSubjects>) -> Result <Response<CalculationResult>, Status>
     {
         let req = request.into_inner();
