@@ -1,9 +1,5 @@
+pub mod calculator { tonic::include_proto!("calculator"); }
 use tonic::{transport::Server, Request, Response, Status};
-
-pub mod calculator {
-    tonic::include_proto!("calculator");
-}
-
 use calculator::calculator_server::{Calculator, CalculatorServer};
 use calculator::{CalculationSubjects, CalculationResult, Empty, Message};
 

@@ -9,6 +9,9 @@ tonic-reflection = "0.9.2"
 prost = "0.11.9"
 prost-types = "0.11.9"
 tokio = { version = "1.5", features = ["full"] }
+serde_derive = "1.0.193"
+axum = "0.7.2"
+serde = "1.0.193"
 
 [build-dependencies]
 tonic-build = "0.9.2"
