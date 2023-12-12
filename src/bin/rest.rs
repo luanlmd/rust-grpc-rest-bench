@@ -18,17 +18,6 @@ struct CalculationResult {
     value: i32
 }
 
-#[tokio::main]
-async fn main() {
-    let app = Router::new()
-    .route("/", get(hello))
-    .route("/add", post(add))
-    .layer(middleware::from_fn(log_requets));
-
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3001").await.unwrap();
-    println!("Starting server on {:?}", listener);
-    axum::serve(listener, app).await.unwrap();
-}
 
 async fn log_requets(req: Request<axum::body::Body>, next: Next) -> Result<impl IntoResponse, (StatusCode, String)> {
     println!("{} {}", req.method(), req.uri());
@@ -48,4 +37,40 @@ async fn add(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<Calc
         value: payload.a + payload.b
     };
     (StatusCode::OK, Json(response))
+}
+
+async fn subtract(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
+    let response = CalculationResult {
+        value: payload.a - payload.b
+    };
+    (StatusCode::OK, Json(response))
+}
+
+async fn multiply(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
+    let response = CalculationResult {
+        value: payload.a * payload.b
+    };
+    (StatusCode::OK, Json(response))
+}
+
+async fn divide(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
+    let response = CalculationResult {
+        value: payload.a / payload.b
+    };
+    (StatusCode::OK, Json(response))
+}
+
+#[tokio::main]
+async fn main() {
+    let app = Router::new()
+    .route("/", get(hello))
+    .route("/add", post(add))
+    .route("/subtract", post(subtract))
+    .route("/multiply", post(multiply))
+    .route("/divide", post(divide))
+    .layer(middleware::from_fn(log_requets));
+
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3001").await.unwrap();
+    println!("Starting server on {:?}", listener);
+    axum::serve(listener, app).await.unwrap();
 }
