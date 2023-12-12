@@ -7,7 +7,6 @@ pub mod calculator {
 use calculator::calculator_server::{Calculator, CalculatorServer};
 use calculator::{CalculationSubjects, CalculationResult, Empty, Message};
 
-
 #[derive(Debug, Default)]
 pub struct CalculatorService {}
 
