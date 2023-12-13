@@ -26,9 +26,7 @@ async fn log_requets(req: Request<axum::body::Body>, next: Next) -> Result<impl 
 
 async fn hello() -> (StatusCode, Json<Message>)
 {
-    let response = Message {
-        message: "Hello from Rest".into()
-    };
+    let response = Message { message: "Hello from Rest".into() };
     (StatusCode::ACCEPTED, Json(response))
 }
 
