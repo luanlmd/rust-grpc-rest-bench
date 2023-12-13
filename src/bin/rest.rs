@@ -33,30 +33,22 @@ async fn hello() -> (StatusCode, Json<Message>)
 }
 
 async fn add(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
-    let response = CalculationResult {
-        value: payload.a + payload.b
-    };
+    let response = CalculationResult { value: payload.a + payload.b };
     (StatusCode::OK, Json(response))
 }
 
 async fn subtract(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
-    let response = CalculationResult {
-        value: payload.a - payload.b
-    };
+    let response = CalculationResult {  value: payload.a - payload.b };
     (StatusCode::OK, Json(response))
 }
 
 async fn multiply(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
-    let response = CalculationResult {
-        value: payload.a * payload.b
-    };
+    let response = CalculationResult { value: payload.a * payload.b };
     (StatusCode::OK, Json(response))
 }
 
 async fn divide(Json(payload): Json<CalculationSubjects>) -> (StatusCode, Json<CalculationResult>) {
-    let response = CalculationResult {
-        value: payload.a / payload.b
-    };
+    let response = CalculationResult { value: payload.a / payload.b };
     (StatusCode::OK, Json(response))
 }
 
