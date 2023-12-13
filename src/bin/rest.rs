@@ -18,7 +18,6 @@ struct CalculationResult {
     value: i32
 }
 
-
 async fn log_requets(req: Request<axum::body::Body>, next: Next) -> Result<impl IntoResponse, (StatusCode, String)> {
     println!("{} {}", req.method(), req.uri());
     Ok(next.run(req).await)
